@@ -1,0 +1,272 @@
+﻿<html>
+
+   
+ <head>
+
+
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111315251-3">
+	</script>
+
+        <script>
+   
+         window.dataLayer = window.dataLayer || [];
+
+            function gtag(){dataLayer.push(arguments);}
+ 
+           gtag('js', new Date());
+
+
+            gtag('config', 'UA-111315251-3');
+
+        </script>
+
+  
+      <title>From Cells to Systems</title>
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+<link rel="stylesheet" href="styles/main.css?4">
+
+  
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js'></script>
+
+
+        <script src='scripts/playable-1.js'></script>
+        <script src='scripts/playable-2.js'></script>
+        <script src='scripts/playable-3.js'></script>
+        <script src='scripts/playable-4.js'></script>
+        <script src='scripts/playable-5.js'></script>
+		<script src='scripts/playable-6.js'></script>
+		<script src='scripts/playable-8.js'></script>
+        <script src='scripts/playable-final.js'></script>
+		<script src='scripts/playable-rule-num.js?2'></script>
+
+    </head>
+
+    <body>
+
+        <header>
+            <h1>Master Cells</h1>
+            <p>An explorable explanation of cellular automata.</p>
+            <p class='credit'><a href=""></a> for <a href="https://explorabl.es">#ExplorablesJam</a> 2018.</p>
+        </header>
+
+        <main>
+
+			<h2>Introduction</h2>
+
+            <p>NOTE: Please use this site in landscape mode, portrait mode won't work properly!</p>
+
+            <p>
+                Hi there, thanks for checking out my first explorable thing!
+                This was made for a jam event during exams, so there might be a few spelling errors.
+            </p>
+
+			<h2>Part 1 : Cells</h2>
+
+			<p>So, you want to simulate a universe? Great! What is the simplest interesting universe we can create?</p>
+
+            <p>
+                Our quest to create the simplest non-trivial universe simulation will follow in the footsteps of
+                Stephen Wolfram, and his work on the elementary cellular automata (ECA).
+            </p>
+
+			<div class="playable p1">
+            	<p>Interactive: Life and death</p>
+            </div>
+
+            <p>
+                A cellular automaton (<i>automata</i> is plural), is a function that takes in a set of cells on a grid,
+                and performs some simple computations to produce a new grid of cells. An ECA is a specific type of
+                cellular automata, one that only exists in one dimension, with cells that have two possible states.
+            </p>
+
+            <p>
+               Each cell in an ECA can either be dead (shown with a light background) or alive (shown with a black background and later
+ on in this article with coloured backgrounds).
+            </p>
+
+            <p>
+                Each cell's neighbours are the other cells within a certain distance.
+                Because an ECA is the most basic cellular automata, each cell only has one neighbour to each side.
+				A cell's neighbourhood is made up of the left neighbour, the cell itself, and the right neighbour:
+            </p>
+
+			<!-- Removed, it was a little redundant <div class="playable p2">
+				<p>Interactive: Neighbours</p>
+			</div> -->
+
+            <div class="playable p3">
+            	<p>Interactive: Neighbourhoods</p>
+            </div>
+
+			<p>
+                Make sure you play with the above interactive a little bit to get a feel of how neighbours and neighbourhoods work,
+                especially at the edge of the simulation (if we can't see a cell we'll assume its dead).
+            </p>
+
+            <p>
+                It's important to remember that neighbourhoods don't just impact the cell in the middle, changing a cell will
+                affect the neighbourhoods of those around it too! To get a feel for this, try and solve this little puzzle
+                (or just move on, it's up to you):
+            </p>
+
+            <div class="playable p4">
+            	<p>Interactive: neighbourhoods puzzle</p>
+            </div>
+
+            <p>
+                See? Making changes to a cell can cause others around it to change too.
+            </p>
+
+            <p>
+                Alright, now you're ready for the real deal, here's an extremely simple ECA,
+                it looks for cells with a neighbourhood of ◼︎◻︎◼︎ and then outputs a live cell when it sees one
+                (hover over an output cell to see its neighbours in the previous generation):
+            </p>
+
+            <div class="playable p5">
+            	<p>Interactive: Single neighbourhood rule, one generation</p>
+            </div>
+
+            <p>
+                Still, this isn't super exciting... But wait! What if we fed the output through the ECA again?
+                Each pass through the ECA is called a "generation", here's the same ECA as before but with two generations this time:
+            </p>
+
+			<div class="playable p6">
+				<p>Interactive: Single neighbourhood rule, two generations</p>
+			</div>
+
+            <p>
+                This is more interesting, and we can start to create patterns,
+                but we're only creating a living output cell when we see one specific type of neighbourhood.
+                An ECA has 8 different types of neighbourhoods, they are (in binary order):
+            </p>
+
+            <p>
+                ◻︎◻︎◻︎, ◻︎◻︎◼︎, ◻︎◼︎◻︎, ◻︎◼︎◼︎, ◼︎◻︎◻︎, ◼︎◻︎◼︎, ◼︎◼︎◻︎, and ◼︎◼︎◼︎
+            </p>
+
+            <p>
+                Here are the first 3 generations of an ECA with switches that control neighbourhood evolution each generation:
+            </p>
+
+            <div class="playable p8">
+            	<p>Interactive: All neighbourhoods, 3 generations</p>
+            </div>
+
+            <p>
+                The convention is that the input cells of an ECA usually contain only one living cell in the middle,
+                and that the generations are stacked below it to form a grid that shows its evolution over time.
+            </p>
+
+            <p>
+                Here's a playground that follows the conventions and allows you to edit the rules with the buttons
+                or by clicking the cells themselves (clicking a cell will toggle the button that matches its neighbours in the previous generation):
+            </p>
+
+            <div class="playable p-final"></div>
+
+			<p>
+				Each ECA has it's own "rule number", that encodes all of the outputs for each type of neighbourhood.
+				This means that you can describe the entire behaviour of an ECA with just this number!
+				The rule number can be found by converting the neighbourhood outputs to a binary number.
+				This is how the rule number is found:
+			</p>
+
+			<div class="playable p-rule-num">
+				<p>Interactive: Rule number from </p>
+			</div>
+
+            <h2>Part 2 : Systems</h2>
+
+            <p>
+                Whilst researching the ECA, Stephen Wolfram came up with 4 different classes that can categorize them:
+            </p>
+            <ul>
+                <li>Class 1 - Uniformity</li>
+                <li>Class 2 - Repetition</li>
+                <li>Class 3 - Randomness</li>
+                <li>Class 4 - Complex</li>
+            </ul>
+
+            <p>
+                Let's see some examples of each of these, just like before you can edit each ECA,
+                clicking reset will restore it to the starting rule number so feel free to experiment!
+            </p>
+
+            <p>
+                Here's rule 223, it's an example of a class 1 ECA because all of the cells remain constantly alive:
+            </p>
+
+            <div class="playable p-final" data-rule='223'>
+                <p>Interactive: Rule number 223 </p>
+            </div>
+
+            <p>
+                Here's rule 196, it's a class 2 ECA because each cell toggles each generation in a pattern:
+            </p>
+
+            <div class="playable p-final" data-rule='186'>
+                <p>Interactive: Rule number 186 </p>
+            </div>
+
+             <p>
+                Here's rule 30, it's a class 3 ECA because the state of some cells is statistically random after
+                many generations (it's so random that it's used in random number generators):
+            </p>
+
+            <div class="playable p-final" data-rule='30'>
+                <p>Interactive: Rule number 30 </p>
+            </div>
+
+            <p>And here's a class 4, complex, ECA. It's rule 110:</p>
+
+            <div class="playable p-final" data-rule='110'>
+                <p>Interactive: Rule number 110 </p>
+            </div>
+
+			<p>
+                Let's talk about rule 110 for a minute, it's very special, it's <i>Turing complete</i>!
+                This is a computer science term that means "able to perform any computable operation".
+                Rule 110 might look a little different to a regular computer, but by encoding programs and data
+                as life and death on the first row of input cells and letting it run for long enough, it is able to
+                carry out any computation.
+            </p>
+
+            <p>
+                So, you now want to simulate a more complex universe?
+                Great! You can run that simulation on rule 110~ 😉
+            </p>
+
+			<h2>Conclusion</h2>
+
+			<p>
+                Thank's for reading my first explorable explanation!
+                If you have any feedback I'd love to hear it, feel free to
+                <a href="https://twitter.com/_Aryabhatiya">contact me on twitter</a> with any ideas or comments!
+            </p>
+
+			<p>Huge thanks to the following people for their suggestions:</p>
+
+			<ul>
+				<li>Mridul Natani (<a href="https://twitter.com/ncasenmare"></a>)</li>
+				<li>Saurabh Meena (<a href="https://twitter.com/redblobgames"></a>)</li>
+				<li>Prateek Agrawal (<a href="https://twitter.com/axchow">@axchow</a>)</li>
+			</ul>
+
+        </main>
+
+        <footer>
+            Copyright (c) by Aryabhatiya
+        </footer>
+
+    </body>
+
+</html>
